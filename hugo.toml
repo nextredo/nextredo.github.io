@@ -1,4 +1,10 @@
-baseURL = 'https://example.org/'
-locale = 'en-us'
+baseURL = 'https://nextredo.github.io/'
+locale = 'en-au'
 title = 'My New Hugo Project'
 theme = 'vintage-web'
+
+# Required for GitHub pages deployment
+# https://gohugo.io/host-and-deploy/host-on-github-pages/
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
