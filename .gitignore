@@ -3,6 +3,12 @@
 /resources/_gen/
 /assets/jsconfig.json
 hugo_stats.json
+/.hugo_build.lock
+
+# Possible hugo executable that gets added
+hugo.exe
+hugo.darwin
+hugo.linux
 
 # Editor tings
 .vscode/
