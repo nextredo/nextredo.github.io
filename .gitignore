@@ -1,0 +1,10 @@
+# Hugo build files
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
+
+# Editor tings
+.vscode/
+*.swp
+*~
