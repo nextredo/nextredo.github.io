@@ -1,4 +1,9 @@
 # To Do
+## Vintage theme
+- [ ] Padding fixup PR
+  - Dotpoints in the preview of a post on the home page are clipped
+  - They go slightly over the line on the left side of the post box
+
 ## Content
 - [ ] Saved links trove
   - [ ] Page for it
