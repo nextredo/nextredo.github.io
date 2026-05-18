@@ -1,4 +1,68 @@
-baseURL = 'https://nextredo.github.io/'
-locale = 'en-au'
-title = 'My New Hugo Project'
-theme = 'vintage-web'
+baseURL = "https://nextredo.github.io/"
+locale = "en-au"
+title = "My Super Cool Website 🌠🌐🔗🔍"
+theme = "vintage-web"
+
+# Menu items
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 10
+
+[[menu.main]]
+name = "Cool sites"
+url = "/sites/"
+weight = 20
+
+[[menu.main]]
+name = "Posts"
+url = "/posts/"
+weight = 30
+
+[[menu.main]]
+name = "About"
+url = "/about/"
+weight = 40
+
+# Theme settings
+[params]
+description = "Website 👍"
+
+# Retro Features
+show_browser_chrome = true
+show_status_bar = true
+show_sidebar = true
+show_welcome_message = true
+welcome_message = "Hello fellow netizen 🖖"
+
+# Content Display
+show_featured_sections = true
+show_stats = true
+show_retro_elements = true
+show_sharing = true
+
+# Footer Options
+show_retro_footer = true
+show_build_info = false
+
+# Sidebar Options
+show_sidebar_stats = true
+show_retro_sidebar = true
+sidebar_content = "🐬🫧🦋🐠"
+
+# Social Links
+[params.social]
+# twitter = "username"
+# github = "username"
+# linkedin = "username"
+# email = "you@example.com"
+# mastodon = "https://mastodon.social/@username"
+# youtube = "channelname"
+# instagram = "username"
+
+# SEO and Analytics
+# google_analytics = "G-XXXXXXXXXX"
+
+# Repository (for edit links)
+repo_url = "https://github.com/nextredo/nextredo.github.io"
+edit_page = true

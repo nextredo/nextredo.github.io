@@ -1,7 +1,15 @@
 +++
-date = '2026-05-17T13:37:58+10:00'
+date = "2026-05-17T13:37:58+10:00"
 draft = true
-title = 'Laptop Power on Charge Mod'
+title = "Laptop Power on Charge Mod"
+description = "Modding my laptop to boot when the charger is plugged in"
+author = "nextredo"
+categories = ["hardware"]
+tags = ["hacking-modding"]
+series = []
+featured_image = ""
+toc = true
+weight = 1
 +++
 
 # Laptop power on charger attach mod
