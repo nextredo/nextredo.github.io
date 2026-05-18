@@ -1,5 +1,10 @@
 # nextredo.github.io 🔗➟🌐
 ## Development
+> [!WARNING]
+> To avoid leaking metadata via EXIF data, do the following. <br>
+> Run `git config core.hooksPath hooks` <br>
+> This sets your git to use the pre commit hook for EXIF removal <br>
+
 ```bash
 # Build & serve site locally (incl. drafts)
 hugo server -D
