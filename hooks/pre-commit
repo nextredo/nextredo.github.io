@@ -3,26 +3,39 @@
 # A small script to remove sensitive EXIF data from images
 # Originally from https://dunkirk.sh/blog/remove-exif-git-hook/
 
-# Check if exiftool is installed
+# Check if exiftool is installed (using BASH builtin)
 if ! command -v exiftool &> /dev/null; then
   echo "Error: exiftool is not installed.  Please install it." >&2
   exit 1
 fi
 
-while read -r file; do
-  case "$file" in
-    *.jpg|*.jpeg|*.png|*.gif|*.tiff|*.bmp)
-      echo "Removing EXIF data from: $file" >&2
-      exiftool -all= --icc_profile:all -tagsfromfile @ -orientation -overwrite_original "$file"
-      if [ $? -ne 0 ]; then
-        echo "Error: exiftool failed to process $file" >&2
-        exit 1
-      fi
-      git add "$file"
-      ;;
-    *)
-      ;;
-  esac
-done < <(git diff --cached --name-only --diff-filter=ACMR)
+# Remove all metadata on all supported files, overwriting them
+# Shell is spawned in the repo root, so this is fine
+# WARN: Skips dirs beginning with '.'
+# Change this by using `-r.` instead
+exiftool -r -all= --icc_profile:all -tagsfromfile @ -orientation -overwrite_original .
+
+# Verify it exited successfully
+if [ $? -ne 0 ]; then
+    echo "Error: exiftool failed to process a file." >&2
+    exit 1
+fi
+
+# # Works ok, but only if you only add exiftool compatible files
+# while read -r file; do
+#   # case "$file" in
+#   #   *.jpg|*.jpeg|*.png|*.gif|*.tiff|*.bmp)
+#       echo "Removing EXIF data from: $file" >&2
+#       exiftool -all= --icc_profile:all -tagsfromfile @ -orientation -overwrite_original "$file"
+#       if [ $? -ne 0 ]; then
+#         echo "Error: exiftool failed to process $file" >&2
+#         exit 1
+#       fi
+#       git add "$file"
+#   #     ;;
+#   #   *)
+#   #     ;;
+#   # esac
+# done < <(git diff --cached --name-only --diff-filter=ACMR)
 
 exit -0
