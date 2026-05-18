@@ -3,6 +3,8 @@
 - [ ] Padding fixup PR
   - Dotpoints in the preview of a post on the home page are clipped
   - They go slightly over the line on the left side of the post box
+- [ ] Fix welcome message not going away when you set `show_welcome_message = false`
+- [ ] Fix short welcome messages not beginning to scroll from the middle (or edge)
 
 ## Content
 - [ ] Saved links trove
@@ -19,6 +21,8 @@
   - Small web revival (anti slop, algos) 💪
 - [ ] Old web gifs
   - [ ] Especially that fire one
+- [ ] That CASIO keyboard around the world demo track thing
+- [ ] Licenses page?? Or nah just have them in the repo for it
 
 ## CICD
 - [ ] Strip all EXIF data from images
