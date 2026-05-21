@@ -14,4 +14,4 @@ hugo build --gc
 ```
 
 ## Licensing 🔏📄
-Everything is covered by [LICENSE](./LICENSE), unless in a subdirectory with its own LICENSE file.
+Everything is covered by [the license file](./LICENSE), unless in a subdirectory with its own LICENSE file or equivalent.
