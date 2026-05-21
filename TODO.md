@@ -24,6 +24,7 @@
 - [ ] That CASIO keyboard around the world demo track thing
 - [ ] Licenses page?? Or nah just have them in the repo for it
 - [ ] Take things from workshop/shadowlab repo and put as website posts
+- [ ] GMN RMS post
 
 ## CICD
 - [x] Strip all EXIF data from images
@@ -36,6 +37,8 @@
   - [ ] Keyboard shortcut to disable the cursor
     - Write this somewhere on the site's title bar or footer
 - [ ] Retro emoji skin?
+- [ ] Brain made / human made (Not AI) mark
+- [ ] Custom tooltip stuff
 
 ### Good Themes
 - <https://github.com/schnerring/hugo-theme-gruvbox>
