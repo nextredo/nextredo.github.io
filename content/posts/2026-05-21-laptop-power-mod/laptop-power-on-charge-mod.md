@@ -76,24 +76,69 @@ Like how most good things start, I turned to google and ended up on reddit (/s).
 
 ## Modding it
 ### The plan
-- 5v relay off USB
-- 20v relay off charger
+Like the post says, I planned to have 2 relays - a 24v one and a 5v one.
+The 24v relay (normally open) is powered by the charger. It shorts the power button.
+The 5v relay (normally closed) is powered by the USB. It opens the 24v relay.
+This way, we have the following sequence of events:
+1. The power cable is plugged in
+2. This closes the 24v relay, shorting the power button
+3. The laptop begins to turn on
+4. The USB ports become powered
+5. This opens the 5v relay, disconnecting the 24v relay, which opens the power button
+6. Laptop boots as normal
 
 ### Getting the parts
-- 5v relay
-- 20-ish volt relay
-- wire, soldering iron, connectors, wire stripper, multimeter
+I already had a cheap "Arduino 5v relay module", so all I needed was the 24v one.
+Thankfully, it was easy enough to find at a local electronics store.
+Other things like wire, a soldering station & materials, a multimeter etc. I already had.
+
+First thing I made sure to check was that it actually activated consistently with the 19v charger.
+Seemed to work ok.
 
 ### Wait, where's the power button?
-- pwr button is part of keyboard
-- looked for different traces on the mobo --> keyboard connector
-- found a pair that changed from open circuit to 200-ish ohms when pwr btn pressed
-- manually shorted them (with a resistor) to check
+Here's the first challenge of the implementation.
+Unlike most laptops with a dedicated power button, this one has the power button as the top-right key on the keyboard.
+<!-- TODO keyboard pic -->
+
+This could be a bit of a pain, because I assume it means the power button is connected to the motherboard through the keyboard connector,
+so its PCB traces will be less obvious than if the power button wasn't part of the keyboard.
+
+<!-- TODO circuit board pic -->
+
+Upon opening the laptop up, I looked for the keyboard connector.
+I assumed it'd be a cable with a lot of pins somewhere, and one at the bottom of the mobo fit that description nicely.
+I watched a keyboard replacement video for some ideas on how to find the power button PCB traces,
+but thankfully it also gave me certainty that I actually had found the keyboard connector.
+
+<!-- TODO kb connector pic -->
+
+Looking at the connector, I noticed 2 pins on the right edge of it that had different PCB traces to the others.
+Since I assumed the power button wouldn't be part of the normal keyboard interface
+(nor would it be routed to the same spot on the mobo), I checked for continuity between the two pins with my multimeter.
+
+Toggling the power button on and off while doing so, I found that the pins were open-circuit when not pressed, and about 236Ω when pressed.
+
+I double checked this was actually the power button by shorting the two by hand via a 225Ω resistor - and sure enough the laptop turned on.
 
 ### Now where's the power come from?
-- found where power comes into the mobo
+This part wasn't so hard, since the barrel jack for power goes straight to a nice big connector on the mobo via some nice red and black wires.
 
 ### Wiring it up
+<!-- TODO 5v relay pic -->
+#### 5v relay connections
+| Relay pin | Relay pin use | Laptop connection |
+|---|---|---|
+| s | Signal - for controlling the relay coil | USB +5v |
+| + | Power - for providing power to the module | USB +5v |
+| - | Ground - power's other half | USB ground |
+| NC | Normally closed - the pin of the relay's "switch" end that is connected to COM when the relay coil is off | Charger +19v |
+| NO | Normally open - the opposite of NC (connected to COM when the coil is on) | N/A |
+| COM | Common - the central part of the relay's "switch" end | The 24v relay's positive coil input |
+
+<!-- TODO 24v relay pic -->
+#### 24v relay connections
+|---|---|---|
+
 - wired it all up
 - tested it with the shell off
 - may have accidentally shorted one of the relays 👀
