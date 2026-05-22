@@ -39,6 +39,7 @@
 - [ ] Retro emoji skin?
 - [ ] Brain made / human made (Not AI) mark
 - [ ] Custom tooltip stuff
+- [ ] Clicking an image opens it as just an image in a new tab?
 
 ### Good Themes
 - <https://github.com/schnerring/hugo-theme-gruvbox>

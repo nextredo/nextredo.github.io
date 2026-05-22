@@ -25,6 +25,9 @@ As someone who'd started homelabbing, this seemed like a great little server mac
 - It's a laptop, so it's power efficient
 - It's a laptop, so it has built-in battery backup
 
+![](laptop-drives.jpg)
+*The laptop with the service panel open. The removed optical drive connector is in the foreground, the 2 other drives are in the background.*
+
 So... what's the catch?
 
 ## The catch
@@ -41,6 +44,8 @@ I assume the answer would be that it just wouldn't turn back on.
 
 Annoyingly, this setting is common on many other laptops, including [my other homelab laptop][lenovo-yoga-260].
 
+<!-- TODO Yoga 260 BIOS with AC wake option selected -->
+
 ### Trying to overcome this
 I investigated a few ways to overcome this - each of which (and why they failed) is below:
 
@@ -49,16 +54,11 @@ Maybe. I tried looking for one on Acer's website - but the [driver search page][
 It also **stupidly** doesn't just have info & downloads without needing an S/N.
 Thankfully I somehow made it to the [driver download page][acer-driver-downloads] anyway.
 
-Weirdly though, I did find some [information online][acer-bios-1.27] that indicates later BIOSes do exist for this machine.
+Weirdly though, I did find some [information online][acer-bios-1.27] that indicates later BIOSes (at least v1.27) exist for this machine.
 But since I can't find or install any of them, this idea is "myth busted".
-<!-- TODO post my BIOS version -->
 
-<!-- TODO try this advanced BIOS settings hack thing
-https://community.acer.com/en/discussion/551722/wake-on-lan-aspire-v5-573g
-
-Artificial sloptelligence summary:
-Step-by-Step GuidePower Off: Shut down your Acer Aspire F5-573G completely.Apply Key Combination: Press and hold the Fn + Tab keys simultaneously, and tap the Power button once.Reboot and Enter BIOS: As the laptop turns on, immediately release the Fn + Tab keys and press F2 repeatedly to enter the standard BIOS screen.Access Advanced Mode: Once inside the standard BIOS, hold the Fn + Tab keys again and press the Power Button until it turns off. Turn the laptop back on, release the buttons, and repeatedly press F2. The Advanced tab should now be available at the top of the screen.
--->
+![](laptop-info.jpg)
+*Seen from an Ubuntu live USB boot, my unit has a BIOS v1.12.*
 
 ##### Use Wake On LAN?
 One setting that the BIOS actually does have is "Wake on LAN".
@@ -108,13 +108,15 @@ Unlike most laptops, this laptop's power button is part of the keyboard.
 This is a pain, because I assume it means the power button is connected to the motherboard through the keyboard connector,
 so its PCB traces will be less obvious than if the power button was standalone.
 
-<!-- TODO circuit board pic -->
+![](laptop-open.jpg)
+*The motherboard of the laptop, as seen with the bottom shell removed.*
 
 Upon opening the laptop, I looked for the keyboard connector.
 I assumed it'd be a cable with a lot of pins somewhere, and one at the bottom of the mobo fit that description nicely.
 I watched a keyboard replacement video for some ideas on how to find the power button PCB traces, but it also showed me the keyboard connector.
 
-<!-- TODO kb connector pic -->
+![](kb-connector.jpg)
+*The keyboard connector.*
 
 Looking at the connector, I noticed 2 pins on the right edge of it that had different looking PCB traces to the others.
 Since I assumed the power button wouldn't be part of the normal keyboard interface
@@ -123,11 +125,19 @@ Toggling the power button on and off while doing so, I found that the pins were 
 
 I double checked this was actually the power button by shorting the two by hand (with a 225Ω resistor). Sure enough, the laptop turned on.
 
+![](kb-connector-soldered.jpg)
+*The keyboard connector, with the power button traces hijacked.*
+
 ### Now where's the power come from?
-This part wasn't so hard, since the barrel jack for power goes straight to a nice big connector on the mobo via some nice red and black wires.
+This part wasn't so hard, since the charging barrel jack goes straight to a nice big connector on the mobo.
+
+![](barrel-jack-connector.jpg)
+*The charging port's connection to the mobo.*
 
 ### Wiring it up
-<!-- TODO 5v relay pic -->
+![](relays.jpg)
+*The two relays. The cryptic pin numbers for the 24v relay correspond to inscriptions next to the pins.*
+
 #### 5v relay connections
 | Relay pin | Laptop connection | Relay pin use |
 |---|---|---|
@@ -138,7 +148,6 @@ This part wasn't so hard, since the barrel jack for power goes straight to a nic
 | NO | N/A | Normally open - the opposite of NC (connected to COM when the coil is on) |
 | COM | The 24v relay's positive coil input | Common - the central part of the relay's "switch" end |
 
-<!-- TODO 24v relay pic -->
 #### 24v relay connections
 | Relay pin | Laptop connection | Relay pin use |
 |---|---|---|
@@ -148,14 +157,22 @@ This part wasn't so hard, since the barrel jack for power goes straight to a nic
 | Pin 87 (NO) | Power button + | See above table |
 | Pin 87a (NC) | N/A | See above table |
 
-So, I soldered it up.
+So, I soldered it up and hot glued the tiny flimsy connections so they (hopefully) wouldn't snap off and short things.
 
 I put connectors everything, so I could remove the relays if I wanted it to be a normal laptop again, and so I could
 remove/reinstall the bottom shell easily.
 
-<!-- TODO soldering pics -->
+![](laptop-testing.jpg)
+*The mobo with both relays installed.*
+
+![](soldering.jpg)
+*Soldering the USB to relay connection.*
 
 ## Fini
+![](final-product.jpg)
+*The laptop, all modded and reassembled.*
+*Don't mind the terrible attempt to repair the fan grille in the right of frame. This laptop has seen better days.*
+
 Yay, it works!
 Few tests with the shell off, and a few with it on, it all looks good to me (even despite me sparking the 19v charge rails once - oops).
 
@@ -172,6 +189,13 @@ Could solve it with a power point timer if you really wanted to.
 - [ ] Reply to the Reddit post
   - Link this static site blog post
   - Thank bro
+
+
+try this advanced BIOS settings hack thing
+https://community.acer.com/en/discussion/551722/wake-on-lan-aspire-v5-573g
+
+Artificial sloptelligence summary:
+Step-by-Step GuidePower Off: Shut down your Acer Aspire F5-573G completely.Apply Key Combination: Press and hold the Fn + Tab keys simultaneously, and tap the Power button once.Reboot and Enter BIOS: As the laptop turns on, immediately release the Fn + Tab keys and press F2 repeatedly to enter the standard BIOS screen.Access Advanced Mode: Once inside the standard BIOS, hold the Fn + Tab keys again and press the Power Button until it turns off. Turn the laptop back on, release the buttons, and repeatedly press F2. The Advanced tab should now be available at the top of the screen.
 -->
 
 <!-- Links -->
