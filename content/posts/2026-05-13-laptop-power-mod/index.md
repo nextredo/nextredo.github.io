@@ -171,19 +171,49 @@ remove/reinstall the bottom shell easily.
 ## Fini
 ![](final-product.jpg)
 *The laptop, all modded and reassembled.*
-*Don't mind the terrible attempt to repair the fan grille in the right of frame. This laptop has seen better days.*
+*Don't mind the terrible attempt to repair the fan grille in the right of frame - this laptop has seen better days.*
 
 Yay, it works!
 Few tests with the shell off, and a few with it on, it all looks good to me (even despite me sparking the 19v charge rails once - oops).
 
-### Problem?
-Or does it? 🤨
+## Problem?
+Well the relay mod works fine.
 
-Yeah, no it works fine.
+**But...**
 
-Just doesn't turn back on if you manually turn the server off - it keeps holding down the power button but the laptop never boots.
-Bit weird, but it acts like any other "Wake on AC attach" laptop would.
-Could solve it with a power point timer if you really wanted to.
+Turns out I didn't actually have to do this 🤦‍♂️.
+While searching around, I discovered that Acer laptops have a *hidden advanced BIOS menu*.
+If you boot the laptop and enter the BIOS while holding `Fn + Tab`, you get access to the power and "advanced" tabs in the BIOS.
+
+While these didn't explicitly have a "Power on AC" option that I was hoping for - they had 2 substitutes that work just fine instead.
+
+### "State after G3" Setting
+Buried deep in the "Advanced" tab, this setting dictates what state the system goes into after "G3" (mechanical off).
+Based on some loose googling, this appears to dictate what the laptop does after a power failure - like running out of battery.
+The options are "S0" and "S5" states - which correspond to sleep and full-on respectively.
+
+![](state_after_g3.jpg)
+*The "State after G3" setting. The screen is a little busted, hence the dark corner.*
+
+Naturally, we want it to boot after power failure, so S5 it is.
+You can [read more about the state terminology here][microsoft-g-states].
+
+### "Auto Wake on S5" Setting
+This setting is a bit more obvious to find, and is the real holy grail we're looking for.
+One of the options for this setting is "By Every Day" - which allows us to boot the computer with an RTC alarm.
+So, at a specific time each day, the computer will boot itself.
+
+This means that we essentially can have the computer auto-boot on power, since as long as it has power, it'll try
+and boot once a day. Combined with the boot after power-loss, and we've got ourselves a good server setup.
+
+![](auto_wake_on_s5.jpg)
+*The "Auto Wake on S5" setting.*
+
+## Fini - Part 2
+
+Welp - time to remove all the relays so it sits nicer on my desk :)
+
+At least I got a cool blog post out of it.
 
 <!-- TODO
 - [ ] Reply to the Reddit post
@@ -208,3 +238,4 @@ Step-by-Step GuidePower Off: Shut down your Acer Aspire F5-573G completely.Apply
 [acer-driver-search]: https://www.acer.com/au-en/support/drivers-and-manuals
 [acer-driver-downloads]: https://www.acer.com/au-en/support/product-support/Aspire_F5-573G
 [reddit-post]: https://www.reddit.com/r/homelab/comments/14swppq/comment/mpd7dqp/?utm_source=share&utm_medium=mweb3x&utm_name=mweb3xcss&utm_term=1
+[microsoft-g-states]: https://learn.microsoft.com/en-us/windows/win32/power/system-power-states
