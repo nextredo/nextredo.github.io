@@ -1,6 +1,10 @@
 # Originally used the GitHub action from the hugo docs
 # Changed to using a different build (peaceiris) and deploying to a branch instead
+#
+# Original:
 # https://gohugo.io/host-and-deploy/host-on-github-pages/
+#
+# Peaceiris version:
 # https://github.com/peaceiris/actions-hugo
 # https://github.com/peaceiris/actions-gh-pages
 

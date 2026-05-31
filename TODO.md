@@ -25,6 +25,10 @@
 - [ ] Licenses page?? Or nah just have them in the repo for it
 - [ ] Take things from workshop/shadowlab repo and put as website posts
 - [ ] GMN RMS post
+- [ ] Add a summary / TLDR section to pages
+- [ ] Word count how long this takes to read
+- [ ] Table of contents
+- [ ] TLDR section (summary) on posts
 
 ## CICD
 - [x] Strip all EXIF data from images
@@ -49,8 +53,12 @@
 - <https://github.com/mrmierzejewski/hugo-theme-console>
   - Based on the console CSS framework
   - Can use this as a model for making a hugo site based off the CSS frameworks below
-  - Good figcaption shortcut thingy for markdown images
 - <https://gitlab.com/andy.sb/nojs>
+  - Super clean, minimalist
+  - Good figcaption shortcut thingy for markdown images
+- <https://gitlab.com/jmfergeau/hugo.386>
+  - Retro BIOS-looking theme, super nice
+  - Overhauled version in the works
 
 ### CSS Frameworks
 - <https://github.com/troxler/awesome-css-frameworks>
