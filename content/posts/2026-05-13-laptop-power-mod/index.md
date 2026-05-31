@@ -1,18 +1,21 @@
 +++
 date = "2026-05-17T13:37:58+10:00"
-draft = true
-title = "Laptop Power on Charge Mod"
-description = "Modding my laptop to boot when the charger is plugged in"
-author = "nextredo"
-categories = ["hardware"]
-tags = ["hacking-modding"]
-series = []
-featured_image = ""
-toc = true
+draft = false
+title = "Laptop Power-on-Charge Mod"
 weight = 1
+description = "Modding my laptop to boot when the charger is plugged in."
+summary = """
+I soldered 2 relays to a laptop motherboard so it boots when powered. \
+I ultimately didn't need to, as hidden BIOS settings can do the same thing.
+"""
+tags = ["hardware", "modding"]
+
+[params]
+  author = "nextredo"
+  # featured_image = ""
+  # toc = true
 +++
 
-# Laptop Power On Charger Attach Mod
 ## Background
 In February 2026, I received and [old Acer laptop (released 2016)][acer-aspire-f-15-f5-f73g] from a friend.
 As someone who'd started homelabbing, this seemed like a great little server machine.
@@ -26,7 +29,8 @@ As someone who'd started homelabbing, this seemed like a great little server mac
 - It's a laptop, so it has built-in battery backup
 
 ![](laptop-drives.jpg)
-*The laptop with the service panel open. The removed optical drive connector is in the foreground, the 2 other drives are in the background.*
+*The laptop with the service panel open.*
+*The removed optical drive connector is in the foreground, the 2 other drives are in the background.*
 
 So... what's the catch?
 
@@ -128,7 +132,7 @@ I double checked this was actually the power button by shorting the two by hand 
 ![](kb-connector-soldered.jpg)
 *The keyboard connector, with the power button traces hijacked.*
 
-### Now where's the power come from?
+### Where does the power come from?
 This part wasn't so hard, since the charging barrel jack goes straight to a nice big connector on the mobo.
 
 ![](barrel-jack-connector.jpg)
@@ -141,7 +145,7 @@ This part wasn't so hard, since the charging barrel jack goes straight to a nice
 #### 5v relay connections
 | Relay pin | Laptop connection | Relay pin use |
 |---|---|---|
-| s | USB +5v | Signal - for controlling the relay coil |
+| S | USB +5v | Signal - for controlling the relay coil |
 | + | USB +5v | Power - for providing power to the module |
 | - | USB ground | Ground - power's other half |
 | NC | Charger +19v | Normally closed - the pin of the relay's "switch" end that is connected to COM when the relay coil is off |
@@ -182,8 +186,8 @@ Well the relay mod works fine.
 **But...**
 
 Turns out I didn't actually have to do this 🤦‍♂️.
-While searching around, I discovered that Acer laptops have a *hidden advanced BIOS menu*.
-If you boot the laptop and enter the BIOS while holding `Fn + Tab`, you get access to the power and "advanced" tabs in the BIOS.
+While searching around, I discovered that Acer laptops [have a *hidden advanced BIOS menu*][advanced-bios-screen-thread].
+If you boot the laptop and enter the BIOS while holding `Fn + Tab`, you get access to the "power" and "advanced" tabs in the BIOS.
 
 While these didn't explicitly have a "Power on AC" option that I was hoping for - they had 2 substitutes that work just fine instead.
 
@@ -220,14 +224,6 @@ At least I got a cool blog post out of it.
   - Link this static site blog post
   - Thank bro
 
-
-try this advanced BIOS settings hack thing
-https://community.acer.com/en/discussion/551722/wake-on-lan-aspire-v5-573g
-
-Artificial sloptelligence summary:
-Step-by-Step GuidePower Off: Shut down your Acer Aspire F5-573G completely.Apply Key Combination: Press and hold the Fn + Tab keys simultaneously, and tap the Power button once.Reboot and Enter BIOS: As the laptop turns on, immediately release the Fn + Tab keys and press F2 repeatedly to enter the standard BIOS screen.Access Advanced Mode: Once inside the standard BIOS, hold the Fn + Tab keys again and press the Power Button until it turns off. Turn the laptop back on, release the buttons, and repeatedly press F2. The Advanced tab should now be available at the top of the screen.
--->
-
 <!-- Links -->
 [acer-aspire-f-15-f5-f73g]: https://laptopmedia.com/au/review/acer-aspire-f-15-f5-573g-a-big-step-forward/
 [hdd-caddy-aliexpress]: https://www.aliexpress.com/item/1005002573524607.html
@@ -239,3 +235,4 @@ Step-by-Step GuidePower Off: Shut down your Acer Aspire F5-573G completely.Apply
 [acer-driver-downloads]: https://www.acer.com/au-en/support/product-support/Aspire_F5-573G
 [reddit-post]: https://www.reddit.com/r/homelab/comments/14swppq/comment/mpd7dqp/?utm_source=share&utm_medium=mweb3x&utm_name=mweb3xcss&utm_term=1
 [microsoft-g-states]: https://learn.microsoft.com/en-us/windows/win32/power/system-power-states
+[advanced-bios-screen-thread]: https://community.acer.com/en/discussion/551722/wake-on-lan-aspire-v5-573g
