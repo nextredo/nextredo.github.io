@@ -1,3 +1,6 @@
 [submodule "themes/vintage-web"]
 	path = themes/vintage-web
 	url = https://github.com/meimakes/vintage-web-hugo-theme.git
+[submodule "themes/nojs"]
+	path = themes/nojs
+	url = https://gitlab.com/andy.sb/nojs.git

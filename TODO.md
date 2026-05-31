@@ -49,6 +49,7 @@
 - <https://github.com/mrmierzejewski/hugo-theme-console>
   - Based on the console CSS framework
   - Can use this as a model for making a hugo site based off the CSS frameworks below
+  - Good figcaption shortcut thingy for markdown images
 - <https://gitlab.com/andy.sb/nojs>
 
 ### CSS Frameworks

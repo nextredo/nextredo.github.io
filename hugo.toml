@@ -1,39 +1,38 @@
 baseURL = "https://nextredo.github.io/"
 locale = "en-au"
-title = "My Super Cool Website 🌠🌐🔍"
-theme = "vintage-web"
+title = "Mega Epic Website 🌠🌐🔍"
+theme = "nojs"
 
 # Menu items
+[menu]
 [[menu.main]]
 name = "🏡 Home"
 url = "/"
-weight = 10
+weight = 1
 
 [[menu.main]]
 name = "🪰 Cool Sites"
 url = "/sites/"
-weight = 20
+weight = 2
 
 [[menu.main]]
 name = "📯 Posts"
 url = "/posts/"
-weight = 30
+weight = 3
 
 [[menu.main]]
-name = "🤨 About"
+name = "🏷️ Tags"
+url = "/tags/"
+weight = 3
+
+[[menu.main]]
+name = "🧐 About"
 url = "/about/"
-weight = 40
+weight = 4
 
 # Theme settings
 [params]
 description = "Website 👍"
-
-# Retro Features
-show_browser_chrome = false
-show_status_bar = true
-show_sidebar = true
-show_welcome_message = true
-welcome_message = "Hello fellow netizen 🖖 - welcome to this corner of the web!"
 
 # Content Display
 show_featured_sections = true
