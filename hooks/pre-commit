@@ -3,11 +3,7 @@
 # A small script to remove sensitive EXIF data from images
 # Modelled off https://dunkirk.sh/blog/remove-exif-git-hook/
 # See here for ideas on exiftool scripting https://exiftool.org/mistakes.html
-
-# Debugging --------------------
-# Show cmds before execution
-# set -x
-# -------------------------------
+# ------------------------------------------------------------------------------
 
 # ANSI Colour Codes
 GREEN='\033[1;32m'
@@ -67,9 +63,16 @@ echo "$ignore_flags"
 echo ""
 
 echo "Starting exiftool..."
+
+# Print before execute
+set -x
+
 exiftool $ignore_flags -r. -all= \
     --icc_profile:all -tagsfromfile @ \
     -orientation -overwrite_original .
+
+# Turn off print before execute
+{ set +x; } 2>/dev/null
 
 # Verify it exited successfully
 check_ret "Run exiftool"
