@@ -17,6 +17,10 @@ copyright = "🄯 AGPLv3"
     source = "LICENSE"
     target = "static/LICENSE"
 
+  [[module.mounts]]
+    source = "themes/brojs/static/favicon.ico"
+    target = "static/favicon.ico"
+
 # Menu items
 [menu]
   [[menu.main]]
