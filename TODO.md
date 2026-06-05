@@ -30,5 +30,6 @@
   - [ ] Incorporate into this site
   - [ ] Redo readme
 - [ ] <https://climateclock.world/> embed
+- [ ] i18n - English & German
 
 ## CICD

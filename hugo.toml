@@ -3,13 +3,19 @@ baseURL = "https://nextredo.github.io/"
 locale = "en-au"
 title = "Mega Epic Website 🌠🌐🔍"
 theme = "brojs"
-# theme = "sample-pls-delete"
 copyright = "🄯 AGPLv3"
 # enableGitInfo = true
 
-# Custom parameters
-[params]
-  repo_url = "https://github.com/nextredo/nextredo.github.io"
+[module]
+  # Explicitly keep existing static dir mount
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+
+  # Mount LICENSE file
+  [[module.mounts]]
+    source = "../LICENSE"
+    target = "static/LICENSE"
 
 # Menu items
 [menu]
@@ -37,3 +43,16 @@ copyright = "🄯 AGPLv3"
     name = "🧐 About"
     url = "/about/"
     weight = 50
+
+
+# Custom parameters
+[params]
+  repo_url = "https://github.com/nextredo/nextredo.github.io"
+
+  [params.footer]
+    made_with_statement = true
+
+  # Supplementary copyright license information
+  [params.license]
+    # https://www.gnu.org/graphics/license-logos.html
+    image = "images/agplv3-license.png"
