@@ -2,37 +2,38 @@
 baseURL = "https://nextredo.github.io/"
 locale = "en-au"
 title = "Mega Epic Website 🌠🌐🔍"
-theme = "nojs"
+theme = "brojs"
+# theme = "sample-pls-delete"
 copyright = "🄯 AGPLv3"
 # enableGitInfo = true
 
 # Custom parameters
 [params]
-repo_url = "https://github.com/nextredo/nextredo.github.io"
+  repo_url = "https://github.com/nextredo/nextredo.github.io"
 
 # Menu items
 [menu]
-[[menu.main]]
-name = "🏡 Home"
-url = "/"
-weight = 1
+  [[menu.main]]
+    name = "🏡 Home"
+    url = "/"
+    weight = 10
 
-[[menu.main]]
-name = "🪰 Cool Sites"
-url = "/sites/"
-weight = 2
+  [[menu.main]]
+    name = "🪰 Cool Sites"
+    url = "/sites/"
+    weight = 20
 
-[[menu.main]]
-name = "📯 Posts"
-url = "/posts/"
-weight = 3
+  [[menu.main]]
+    name = "📯 Posts"
+    url = "/posts/"
+    weight = 30
 
-[[menu.main]]
-name = "🏷️ Tags"
-url = "/tags/"
-weight = 3
+  [[menu.main]]
+    name = "🏷️ Tags"
+    url = "/tags/"
+    weight = 40
 
-[[menu.main]]
-name = "🧐 About"
-url = "/about/"
-weight = 4
+  [[menu.main]]
+    name = "🧐 About"
+    url = "/about/"
+    weight = 50
