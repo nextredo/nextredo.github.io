@@ -14,7 +14,7 @@ copyright = "🄯 AGPLv3"
 
   # Mount LICENSE file
   [[module.mounts]]
-    source = "../LICENSE"
+    source = "LICENSE"
     target = "static/LICENSE"
 
 # Menu items
