@@ -7,3 +7,4 @@
 [submodule "themes/brojs"]
 	path = themes/brojs
 	url = https://github.com/nextredo/brojs.git
+	branch = main
