@@ -2,90 +2,78 @@
 #
 # A small script to remove sensitive EXIF data from images
 # Modelled off https://dunkirk.sh/blog/remove-exif-git-hook/
+# See here for ideas on exiftool scripting https://exiftool.org/mistakes.html
 
-# Check if exiftool is installed (using BASH builtin)
-if ! command -v exiftool &> /dev/null; then
-    echo "Error: exiftool is not installed.  Please install it." >&2
-    exit 1
-fi
-
-
-# ------------------------------------------------------------------------------
-# | Debugging / dev |
-# --------------------
-# Randomly return a failure
-# rand_failure() {
-#     # Adjust failure chance w/ number
-#     return (( RANDOM % 20 )) && true || false
-# }
-# export -f rand_failure
-# ------------------------------------------------------------------------------
-
-# ------------------------------------------------------------------------------
-# | Subshell goodies |
-# --------------------
+# Debugging --------------------
+# Show cmds before execution
+# set -x
+# -------------------------------
 
 # ANSI Colour Codes
 GREEN='\033[1;32m'
 RED='\033[1;31m'
 NC='\033[0m' # No colour
 
-check_ret() {
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}SUCCESS${NC}"
-    else
-        echo -e "${RED}FAILURE${NC}"
+GOOD="${GREEN}SUCCESS${NC}"
+BAD="${RED}FAILURE${NC}"
 
-        # So xargs exits immediately w/ failure
-        exit 255
+check_ret() {
+    # Check return from command called before this function
+    if [ $? -eq 0 ]; then
+        echo -e "${GOOD}: ${1}"
+    else
+        echo -e "${BAD}: ${1}" >&2
+        exit 1
     fi
 }
 
-strip_exif() {
-    # Remove most metadata on all supported files
-    # Overwrites stripped files
-    # exiftool -all= --icc_profile:all \
-    #     -tagsfromfile @ -orientation \
-    #     -ignoreMinorErrors \
-    #     -overwrite_original "$1"
-    echo "$1"
-    check_ret
-}
-
-# Export so subshells can use various items
-export -f strip_exif
-export -f check_ret
-export GREEN
-export RED
-export NC
-
 # ------------------------------------------------------------------------------
-
-# Shell is spawned in the repo root, so '.' works fine as the directory
-# List git files (either in the index, or not in it)
-# Pipe into xargs (parallelised, substituted as "{}" in command)
-# Spawn in subshell so it has access to the function
-# Run "strip_exif" in the subshell
-    # "$@" expands all args (excl. $0 - i.e. $1, $2, $3...) given to the full subshell cmd 'strip_exif ...'
-        # Quoted and split w spaces
-    # The "-c" used for bash invocation provides "_" and "{}" as args $0 and $1 to the subshell cmd respectively
-        # _ is the last arg of the prev command
-        # {} is the positional substitution of whatever xargs is outputting (a line from the "git ls-files ..." cmd)
-
-# NOTE: Add `-P $(nproc)` to xargs to parallelise the operation
-#       May mean multiple failures happen before xargs fully exits
-git ls-files --cached | \
-    xargs -I {} bash -x -c 'strip_exif "$@"' _ {}
-
-git ls-files --other | \
-    xargs -I {} bash -x -c 'strip_exif "$@"' _ {}
-
-
-# Verify it exited successfully
-if [ $? -ne 0 ]; then
-    echo "Error: exiftool failed to process a file." >&2
-    exit 1
+# Meat of the script -----------------------------------------------------------
+# Check if exiftool is installed (using BASH builtin)
+if ! command -v exiftool &> /dev/null; then
+    echo "${BAD}: Exiftool is not installed. Please install it." >&2
 fi
 
-# Exit successfully
+# Script warning
+cat << 'EOF'
+------------------------------------------------------------
+WARNING:
+This script may change files in .gitignore'd locations.
+Said stripped files will not show up as changes though.
+
+NOTE:
+This script;
+- Changes items in directories starting with '.'
+- Only changes files supported by exiftool
+------------------------------------------------------------
+
+EOF
+
+# Get directories to ignore for exiftool
+ignore_flags=$(
+    git config --file .gitmodules --get-regexp path | \
+        awk '{
+            printf "-i ./%s ", $2;
+        }
+        END {
+            print "-i ./.git";
+        }'
+)
+check_ret "Get ignore flags"
+
+# ------------------------------------------------------------------------------
+echo "Ignore flags:"
+echo "$ignore_flags"
+echo ""
+
+echo "Starting exiftool..."
+exiftool $ignore_flags -r. -all= \
+    --icc_profile:all -tagsfromfile @ \
+    -orientation -overwrite_original .
+
+# Verify it exited successfully
+check_ret "Run exiftool"
+# ------------------------------------------------------------------------------
+
+# Quit happily :)
 exit 0
