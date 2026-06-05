@@ -5,6 +5,26 @@
 # See here for ideas on exiftool scripting https://exiftool.org/mistakes.html
 # ------------------------------------------------------------------------------
 
+# TODO put this in an actual script
+# Debugging nonsense
+# Lets you check if it actually removes what it says it does
+# Files should look like this:
+# /tmp
+# ├── test
+# │   ├── img.jpg
+# │   └── subdir
+# │       ├── img.jpg
+# │       ├── original (created by the script)
+# │       └── stripped (created by the script)
+# cd /tmp/test/subdir
+# exiftool ../img.jpg > original
+# ~/<PATH_TO_REPO>/hooks/pre-commit
+# exiftool ./img.jpg > stripped
+# grep -Fvxf stripped original
+#
+# Copy file back for the next run
+# cp -f ../img.jpg .
+
 # ANSI Colour Codes
 GREEN='\033[1;32m'
 RED='\033[1;31m'
@@ -67,9 +87,17 @@ echo "Starting exiftool..."
 # Print before execute
 set -x
 
-exiftool $ignore_flags -r. -all= \
-    --icc_profile:all -tagsfromfile @ \
-    -orientation -overwrite_original .
+# "Wipe everything apart from ..."
+# exiftool $ignore_flags -r. -preserve -overwrite_original_in_place \
+#     -all= --icc_profile:all --pixel:all -tagsfromfile @ \
+#     -orientation -Software -Artist -Copyright -source .
+
+# "Wipe these specific things only"
+exiftool $ignore_flags -r. -preserve -overwrite_original_in_place \
+    -gps:all= -gps*= -SerialNumber= -LensSerialNumber= \
+    -LensIDNumber= -SerialNumber= -LensSerialNumber= \
+    -ShutterCount= -Keywords= -Subject= -ThumbnailImage= \
+    -PhotoshopThumbnail= -XMP:All= -MakerNotes= .
 
 # Turn off print before execute
 { set +x; } 2>/dev/null
