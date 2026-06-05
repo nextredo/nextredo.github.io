@@ -40,8 +40,15 @@ main {
   padding-bottom: 2em;
 }
 
+.footer-content * img {
+  height: 1em;
+  width: auto;
+  vertical-align: text-top;
+}
+
 .footer-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -59,10 +66,13 @@ article:not(:last-of-type) {
   margin: 1em 0;
 }
 
-.tags {
+.tags,
+.info {
   list-style: none;
   display: inline-flex;
+  flex-wrap: wrap;
   gap: 0.5em;
+  row-gap: inherit;
   margin: 0;
   padding: 0;
 }
@@ -78,6 +88,15 @@ article:not(:last-of-type) {
 
 :is(h1, h2, h3, h4, h5, h6):hover .anchor {
   visibility: visible;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
 }
 
 p,
@@ -114,7 +133,10 @@ th {
 }
 
 td,
-th,
+th {
+  padding: 0.25em;
+}
+
 pre {
   padding: 1em;
 }
@@ -129,11 +151,42 @@ figure {
 }
 
 img {
-  width: 100%;
+  max-width: 100%;
 }
 
 figcaption {
   margin-top: 1em;
   color: var(--fg2);
   text-align: center;
+}
+
+details {
+  cursor: pointer;
+}
+
+aside {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+hr {
+  border: none;
+  border-top-style: dotted;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Hugo automatically assigns
+the below ID to the TOC element */
+#TableOfContents ul {
+  font-style: italic;
+  list-style-type: none;
+  padding-left: 1em;
+  padding-top: 0em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+#TableOfContents li a {
+  text-decoration: none;
 }

@@ -54,7 +54,7 @@
     margin: 0;
     flex-direction: column;
   }
-  
+
   .navbar ul .active {
     border: none;
     background-color: var(--bg3);
