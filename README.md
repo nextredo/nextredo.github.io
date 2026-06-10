@@ -1,4 +1,7 @@
 # nextredo.github.io 🔗➟🌐
+> [!TIP]
+> Website *should be* live at <https://nextredo.github.io>
+
 ## Development
 > [!WARNING]
 > To avoid leaking sensitive info via image EXIF metadata,
